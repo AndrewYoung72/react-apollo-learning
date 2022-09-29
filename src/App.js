@@ -1,10 +1,15 @@
 // import { useQuery, gql } from '@apollo/client';
-import { BrowserRouter as Router, Routes, Route, Link as RouterLink} from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link as RouterLink,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import SignIn from "./pages/SignIn";
-import Link from '@mui/material/Link';
-
+import SignUp from "./pages/SignUp";
+import Link from "@mui/material/Link";
+import ButtonAppBar from "./components/appbar";
 
 // const GET_LOCATIONS = gql`
 //   query GetLocations {
@@ -38,27 +43,31 @@ import Link from '@mui/material/Link';
 export default function App() {
   return (
     <Router>
-       <div className="navbar">
+      <ButtonAppBar />
+      <div className="navbar">
         <ul>
           <li>
-            <Link component={RouterLink} to={`/login`} underline="hover" >LogIn</Link>
+            <Link component={RouterLink} to={`/login`} underline="hover">
+              LogIn
+            </Link>
           </li>
           <li>
-            <Link component={RouterLink} to={`/`} underline="hover" >Home</Link>
+            <Link component={RouterLink} to={`/`} underline="hover">
+              Home
+            </Link>
           </li>
           <li>
-            <Link component={RouterLink} to={`/signin`} underline="hover" >SignIn</Link>
+            <Link component={RouterLink} to={`/signup`} underline="hover">
+              SignUp
+            </Link>
           </li>
         </ul>
       </div>
-        <Routes>
-          <Route path="/" element={<Home />} >
-          </Route>
-          <Route path="/login" element={<Login />}> 
-          </Route>
-          <Route path="/signin" element={<SignIn />}> 
-          </Route>
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
+      </Routes>
     </Router>
   );
 }
