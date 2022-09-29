@@ -1,15 +1,17 @@
-// import { useQuery, gql } from '@apollo/client';
+import * as React from 'react';
+import Home from './pages/Home';
+import Login from "./pages/Login";
+import SignUp from './pages/SignUp';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Link as RouterLink,
 } from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
 import Link from "@mui/material/Link";
-import ButtonAppBar from "./components/appbar";
+import "./App.css";
+
+
 
 // const GET_LOCATIONS = gql`
 //   query GetLocations {
@@ -42,22 +44,22 @@ import ButtonAppBar from "./components/appbar";
 
 export default function App() {
   return (
-    <Router>
-      <ButtonAppBar />
+  <div className="nav-container">
+       <Router>
       <div className="navbar">
         <ul>
           <li>
-            <Link component={RouterLink} to={`/login`} underline="hover">
+            <Link component={RouterLink} to={`/login`} underline="hover" color="inherit">
               LogIn
             </Link>
           </li>
           <li>
-            <Link component={RouterLink} to={`/`} underline="hover">
+            <Link component={RouterLink} to={`/`} underline="hover" color="inherit" >
               Home
             </Link>
           </li>
           <li>
-            <Link component={RouterLink} to={`/signup`} underline="hover">
+            <Link component={RouterLink} to={`/signup`} underline="hover" color="inherit" >
               SignUp
             </Link>
           </li>
@@ -69,5 +71,6 @@ export default function App() {
         <Route path="/signup" element={<SignUp />}></Route>
       </Routes>
     </Router>
+  </div>
   );
 }
