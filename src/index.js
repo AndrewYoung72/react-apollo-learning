@@ -11,14 +11,14 @@ import {
   Route,
   Navigate
 } from "react-router-dom";
-import ResponsiveAppBar from './components/ResponsiveAppBar';
+import ButtonAppBar from './components/ResponsiveAppBar';
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-  <ResponsiveAppBar />
+  <ButtonAppBar />
   <Router>
     <Routes>
         <Route path="/" element={<Home />}></Route>
