@@ -1,7 +1,8 @@
 // import { useQuery, gql } from '@apollo/client';
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import SignIn from "./pages/SignIn";
 
 // const GET_LOCATIONS = gql`
 //   query GetLocations {
@@ -35,12 +36,25 @@ import Login from "./pages/Login";
 export default function App() {
   return (
     <Router>
+       <div>
+        <ul>
+          <li>
+            <Link to={`/login`} >LogIn</Link>
+          </li>
+          <li>
+            <Link to={`/`}>Home</Link>
+          </li>
+          <li>
+            <Link to={`/signin`}>SignIn</Link>
+          </li>
+        </ul>
+      </div>
         <Routes>
           <Route path="/" element={<Home />} >
-            
           </Route>
-          <Route path="/login" element={<Login />}>
-            
+          <Route path="/login" element={<Login />}> 
+          </Route>
+          <Route path="/signin" element={<SignIn />}> 
           </Route>
         </Routes>
     </Router>
