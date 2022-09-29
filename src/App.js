@@ -65,11 +65,13 @@ export default function App() {
           </li>
         </ul>
       </div>
+      <div>
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
       </Routes>
+      </div>
     </Router>
   </div>
   );
