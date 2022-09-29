@@ -1,8 +1,13 @@
 .nav-container {
   display: flex;
-  justify-content: center;
-  background-color: blue;
+  justify-content:flex-start;
+  padding: 10px;
+  margin: 10px;
+  background-color: rgba(19, 76, 190, 0.666);
   color: rgb(229, 228, 228);
+}
+.nav-container Link {
+  padding: 25px;
 }
 
 
