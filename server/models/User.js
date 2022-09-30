@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { hash, compare } from "bcrypt";
+import favoriteSchema from "./Favorites";
 
 const userSchema = new Schema(
   {
@@ -19,6 +20,7 @@ const userSchema = new Schema(
       required: true,
     },
 
+    favorite: [favoriteSchema],
   },
 
   {
@@ -32,7 +34,7 @@ const userSchema = new Schema(
 userSchema.pre("save", async function (next) {
   if (this.isNew || this.isModified("password")) {
     const saltRounds = 10;
-    this.password = hash(this.password, saltRounds);
+    this.password = await hash(this.password, saltRounds);
   }
 
   next();
