@@ -1,41 +1,71 @@
-import decode from "jwt-decode";
+// import decode from "jwt-decode";
 
-class AuthService {
-  getProfile() {
-    return decode(this.getToken());
+// class AuthService {
+//   getProfile() {
+//     return decode(this.getToken());
+//   }
+
+//   loggedIn() {
+//     const token = this.getToken();
+//     // If there is a token and it's not expired, return `true`
+//     return token && !this.isTokenExpired(token) ? true : false;
+//   }
+
+//   isTokenExpired(token) {
+//     // Decode the token to get its expiration time that was set by the server
+//     const decoded = decode(token);
+//     // If the expiration time is less than the current time (in seconds), the token is expired and we return `true`
+//     if (decoded.exp < Date.now() / 1000) {
+//       localStorage.removeItem("id_token");
+//       return true;
+//     }
+//     // If token hasn't passed its expiration time, return `false`
+//     return false;
+//   }
+
+//   getToken() {
+//     return localStorage.getItem("id_token");
+//   }
+
+//   login(idToken) {
+//     localStorage.setItem("id_token", idToken);
+//     window.location.assign("profile");
+//   }
+
+//   logout() {
+//     localStorage.removeItem("id_token");
+//     window.location.reload("login");
+//   }
+// }
+
+// export default new AuthService();
+import pkg from 'jsonwebtoken';
+const { verify, sign } = pkg;
+
+const secret = 'mysecretssshhhhhhh';
+const expiration = '2h';
+
+export function authMiddleware({ req }) {
+  let token = req.body.token || req.query.token || req.headers.authorization;
+
+  if (req.headers.authorization) {
+    token = token.split(' ').pop().trim();
   }
 
-  loggedIn() {
-    const token = this.getToken();
-    // If there is a token and it's not expired, return `true`
-    return token && !this.isTokenExpired(token) ? true : false;
+  if (!token) {
+    return req;
   }
 
-  isTokenExpired(token) {
-    // Decode the token to get its expiration time that was set by the server
-    const decoded = decode(token);
-    // If the expiration time is less than the current time (in seconds), the token is expired and we return `true`
-    if (decoded.exp < Date.now() / 1000) {
-      localStorage.removeItem("id_token");
-      return true;
-    }
-    // If token hasn't passed its expiration time, return `false`
-    return false;
+  try {
+    const { data } = verify(token, secret, { maxAge: expiration });
+    req.user = data;
+  } catch {
+    console.log('Invalid token');
   }
 
-  getToken() {
-    return localStorage.getItem("id_token");
-  }
-
-  login(idToken) {
-    localStorage.setItem("id_token", idToken);
-    window.location.assign("profile");
-  }
-
-  logout() {
-    localStorage.removeItem("id_token");
-    window.location.reload("login");
-  }
+  return req;
 }
-
-export default new AuthService();
+export function signToken({ email, username, _id }) {
+  const payload = { email, username, _id };
+  return sign({ data: payload }, secret, { expiresIn: expiration });
+}

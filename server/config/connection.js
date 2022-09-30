@@ -1,4 +1,6 @@
-import { connect, connection } from "mongoose";
+// import { connect, connection } from "mongoose";
+import pkg from 'mongoose';
+const { connect, connection } = pkg;
 
 connect(
   process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/react-apollo-learning",
