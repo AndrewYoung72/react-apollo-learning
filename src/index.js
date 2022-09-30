@@ -1,7 +1,7 @@
 import * as React from "react";
 import ReactDOM from "react-dom/client";
 import {Link} from "react-router-dom";
-// import Home from './pages/Home';
+import Home from './pages/Home';
 import Login from "./pages/Login";
 import SignUp from './pages/SignUp';
 import "./App.css";
@@ -15,20 +15,6 @@ import {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-
-    // <nav className="nav-container">
-    //   <ul>
-    //     <li>
-    //       <Link to="/">Home</Link>
-    //     </li>
-    //     <li>
-    //       <Link to="/login">Login</Link>
-    //     </li>
-    //     <li>
-    //       <Link to="/sigup">Signup</Link>
-    //     </li>
-    //   </ul>
-    // </nav>
     <Router>
       <NavList />
       <Routes>
@@ -41,31 +27,7 @@ root.render(
   
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 
-function Home() {
-  return (
-    <div>
-      <h1>Home Route</h1>
-    </div>
-  );
-}
-// function SignUp() {
-//   return (
-//     <div>
-//       <h1>Signup Route</h1>
-//     </div>
-//   );
-// }
-// function Login() {
-//   return (
-//     <div>
-//       <h1>Login Route</h1>
-//     </div>
-//   );
-// }
 function NavList() {
   return(
     <div className="nav-container">
