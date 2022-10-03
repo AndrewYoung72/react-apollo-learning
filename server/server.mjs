@@ -52,7 +52,7 @@ const app = express();
 
 app.use(urlencoded({ extended: true }));
 app.use(json());
-// app.use(routes);
+app.get("/");
 
 db.once('open', () => {
   app.listen(PORT, () => {
