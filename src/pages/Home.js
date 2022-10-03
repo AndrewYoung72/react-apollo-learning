@@ -4,7 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import axios from "axios";
+
 
 
 
@@ -16,28 +16,27 @@ const API_URL =
 
 export default function Home() {
   const [pubData, setPubData] = useState([]);
-  const [myData, setMyData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
  
 
-  useEffect (() => {
-    searchGithub()
-  }, [])
-//"https://api.github.com/ussers/AndrewYoung72"
+//   useEffect (() => {
+//     searchGithub()
+//   }, [])
+// //"https://api.github.com/ussers/AndrewYoung72"
 
-  const searchGithub = async (my_data) => {
-    try {
-      const response = await axios("https://api.github.com/ussers/AndrewYoung72");
-      setMyData(response.data);
-    } catch (error) {
+//   const searchGithub = async (my_data) => {
+//     try {
+//       const response = await axios("https://api.github.com/users/AndrewYoung72");
+//       setMyData(response.data);
+//       console.log(myData);
+//     } catch (error) {
 
-    }
-  }
-  console.log(myData)
-  if (loading) return "Loading...";
-  if (error) return "Error..."
+//     }
+//   }
   
+
 
   const searchBreweries = async (by_state) => {
     const response = await fetch(`${API_URL}`);
@@ -60,14 +59,9 @@ export default function Home() {
         >
           Render Data
         </Button>
-        <Button variant="outlined"
-          onClick={() => {
-            searchGithub();
-          }}
-        >
-          My Data
-        </Button>
+    
       </aside>
+   
       <div className="card-container">
         {pubData.map((pubData, id) => (
 
