@@ -9,9 +9,10 @@ import "./App.css";
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
+  Route
   
 } from "react-router-dom";
+import searchBreweries from "./pages/Home";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -23,6 +24,7 @@ root.render(
 
         <Route path="/signup" element={<SignUp />}></Route>
       </Routes>
+ 
     </Router>
   
 );
@@ -34,6 +36,7 @@ function NavList() {
       <Link to="/" style={{padding: 25, textDecoration: 'none', color:"white", fontWeight:"bold", fontSize:"large"}}>Home</Link>
       <Link to="/login" style={{padding: 25, textDecoration: 'none', color:"white", fontWeight:"bold", fontSize:"large"}}>SignIn</Link>
       <Link to="/signup" style={{padding: 25, textDecoration: 'none', color:"white", fontWeight:"bold", fontSize:"large"}}>SignUp</Link>
+      
     </div>
   )
 
