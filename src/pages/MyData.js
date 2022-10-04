@@ -1,40 +1,43 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
+import { getDataFromTree } from "@apollo/client/react/ssr";
 
+
+const API_URL =
+"https://api.github.com/users/AndrewYoung72";
 
 export default function MyData() {
   const [data, setData] = useState(null);
-  
-  useEffect (() => {
-    searchGithub();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+ 
+  useEffect(() => {
+    getData();
   }, []);
-//"https://api.github.com/ussers/AndrewYoung72"
-  async function searchGithub() {
+
+  async function getData() {
     try {
-      const response = await axios("https://api.github.com/ussers/AndrewYoung72");
+      const response = await axios(API_URL);
       setData(response.data)
     } catch (error) {
-
+      setError(error)
     }
+    setLoading(false);
   }
   console.log(data)
+
+  if (loading) return "Loading...";
+  if (error) return "Error..";
+ 
   return (
     <div className="mydata-container">
-    
-        <Button variant="outlined"
-          onClick={() => {
-            searchGithub();
-          }}
-        >
-          Render Data
-          </Button>
       <img src={data.avatar_url} alt="blah" />
-      <p>{data.name}</p>
-      <p>{data.bio}</p>
-      <p>{data.login}</p>
-      <p>{data.location}</p>
-      <p>{data.public_repos}</p>
+      <p>Name: {data.name}</p>
+      <p> Bio: {data.bio}</p>
+      <p> GitHub: {data.login}</p>
+      <p> Home: {data.location}</p>
+      <p> Repos: {data.public_repos}</p>
     </div>
   )
 }
