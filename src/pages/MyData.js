@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Button from "@mui/material/Button";
-import { getDataFromTree } from "@apollo/client/react/ssr";
+
 
 
 const API_URL =
