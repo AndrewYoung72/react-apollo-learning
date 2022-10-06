@@ -10,7 +10,8 @@ const typeDefs = gql`
   }
   type User {
     _id: ID
-    username: String
+    firstname: String
+    lastname: String
     email: String
     favorites: [Favorite]
   }
@@ -25,7 +26,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(firstname: String!, lastname: String! email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addFavorite( name: String!, brewery_type: String!, city: String!, street: String!): Favorite
     
