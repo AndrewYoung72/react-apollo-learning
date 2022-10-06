@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,6 +15,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 function Copyright(props) {
   return (
@@ -33,7 +35,25 @@ const theme = createTheme();
 
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const [formState, setFormState] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+
+  const [addUser, { error, data }] = useMutation(ADD_USER);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit =  async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
@@ -42,6 +62,22 @@ export default function SignUp() {
       firstname: data.get('firstName'),
       lastname: data.get('lastName'),
     });
+    try {
+      const { data } = await addUser({
+        variables: { ...formState },
+      });
+
+      Auth.login(data.addUser.token);
+    } catch (e) {
+      console.error(e);
+    }
+    setFormState({
+      firstname: data.get('firstName'),
+      lastname: data.get('lastName'),
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+    console.log(formState)
   };
 
   return (
