@@ -1,6 +1,7 @@
-import { User} from "../models";
-import { signToken } from "../utils/auth";
-import { AuthenticationError } from "apollo-server-express";
+/* eslint-disable import/first */
+const { User} =require( "../models/User");
+const { signToken } =require( "../utils/auth");
+const { AuthenticationError } =require("apollo-server-express");
 
 const resolvers = {
   Query: {
@@ -28,25 +29,25 @@ const resolvers = {
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw new AuthenticationError("Incorrect password");
       }
 
       const token = signToken(user);
 
       return { token, user };
     },
-    addFavorite: async (parent, { name, lat, lon }, context) => {
+    addFavorite: async (parent, { name, brewery_type, city, street }, context) => {
       if (context.user) {
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { favorites: { name, lat, lon } } }
+          { $addToSet: { favorites: { name, brewery_type, city, street } } }
         );
 
-        return { _id: null, name, lat, lon };
+        return { _id: null, name, brewery_type, city, street };
       }
       throw new AuthenticationError("You need to be logged in!");
     },
   },
 };
 
-export default resolvers;
+module.exports = resolvers

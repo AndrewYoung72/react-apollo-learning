@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose";
-import { hash, compare } from "bcrypt";
-import favoritesSchema from "./Favorites";
+const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt");
+const favoritesSchema = require("./Favorite");
 
 const userSchema = new Schema(
   {
@@ -34,16 +34,16 @@ const userSchema = new Schema(
 userSchema.pre("save", async function (next) {
   if (this.isNew || this.isModified("password")) {
     const saltRounds = 10;
-    this.password = await hash(this.password, saltRounds);
+    this.password = await bcrypt.hash(this.password, saltRounds);
   }
 
   next();
 });
 
 userSchema.methods.isCorrectPassword = async function (password) {
-  return compare(password, this.password);
+  return bcrypt.compare(password, this.password);
 };
 
 const User = model("User", userSchema);
 
-export default User;
+module.exports = User;

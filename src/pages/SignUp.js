@@ -28,6 +28,8 @@ function Copyright(props) {
 
 const theme = createTheme();
 
+
+
 export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,6 +37,8 @@ export default function SignUp() {
     console.log({
       email: data.get('email'),
       password: data.get('password'),
+      firstname: data.get('firstName'),
+      lastname: data.get('lastName'),
     });
   };
 
