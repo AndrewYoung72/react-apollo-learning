@@ -4,13 +4,15 @@ export const QUERY_USER = gql`
   query User {
   user {
     _id
-    username
+    firstName
+    lastName
     email
     favorites {
       _id
       name
-      lat
-      lon
+      brewery_type
+      city
+      street
     }
   }
 }

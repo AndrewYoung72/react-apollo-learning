@@ -4,7 +4,12 @@ const favoritesSchema = require("./Favorite");
 
 const userSchema = new Schema(
   {
-    username: {
+    firstname: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    lastname: {
       type: String,
       required: true,
       unique: true,

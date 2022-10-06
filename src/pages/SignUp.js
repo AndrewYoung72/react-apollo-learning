@@ -41,7 +41,6 @@ export default function SignUp() {
     email: "",
     password: "",
   });
-
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
@@ -53,15 +52,10 @@ export default function SignUp() {
     });
   };
 
+
   const handleSubmit =  async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-      firstname: data.get('firstName'),
-      lastname: data.get('lastName'),
-    });
+    // const data = new FormData(event.currentTarget) ;
     try {
       const { data } = await addUser({
         variables: { ...formState },
@@ -71,13 +65,16 @@ export default function SignUp() {
     } catch (e) {
       console.error(e);
     }
-    setFormState({
-      firstname: data.get('firstName'),
-      lastname: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+   
+    
+      
     console.log(formState)
+    setFormState({
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+    });
   };
 
   return (
@@ -107,6 +104,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="firstName"
+                  value={formState.firstname}
+                  onChange={handleChange}
                   label="First Name"
                   autoFocus
                 />
@@ -118,6 +117,8 @@ export default function SignUp() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  value={formState.lastname}
+                  onChange={handleChange}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -128,6 +129,8 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   name="email"
+                  value={formState.email}
+                  onChange={handleChange}
                   autoComplete="email"
                 />
               </Grid>
@@ -136,6 +139,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   name="password"
+                  value={formState.password}
+                  onChange={handleChange}
                   label="Password"
                   type="password"
                   id="password"
